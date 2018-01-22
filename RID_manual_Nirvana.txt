@@ -1,0 +1,67 @@
+# manual
+# Manual for Reverse Index System
+# Maintained by Yang Yijiang
+# Current RID version: Modified Trial One Nirvana
+
+# log
+# 版本改进：
+	++增加RID文件的分页机制
+	++改进收集策略，减少未响应情况
+	++更新RI_intsc_symdif函数，支持分页文件的读取
+	++更新loader函数，支持最新改进
+	++增加RI_exclude函数，支持not逻辑
+#endLog
+
+# description
+	The streamline of the whole process contains four parts:
+		collect information
+		write RID file
+		load RID file
+		integrate results
+	在第一部分，该系统从索引文件夹中读取索引文件，然后根据每个索引文件中出现的词条以及对应的文件号码，建立一个初步的倒排索引，该倒排索引是以红黑树的存储结构存储的。
+	每个初步的倒排索引大小不超过4000个词条，这是由于当索引的大小超过这个数字的时候，倒排索引的处理时间将会急剧的增长，而且有机会使得程序崩溃。
+	
+	在第二部分，系统将会把初步的倒排索引写入RID文件中，格式根据RID Type Trial One格式进行存储。这个版本实现了分页写文件，与之前版本有较大的改进，每个页文件词条上限4000，并存储词条字符和索引。
+	在这一步，将倒排索引的存储结构转变为散列表，该散列表为闭散列，防止文件过于膨胀，超出文件存储格式所能寻求的寻址空间。哈希函数采用移位折叠法并平方，为的是增加散列表的稀疏程度。散列冲突策略为二次探查法。
+	
+	第三部分，每次搜索的时候，将会载入分页文件，并收集对应词条所有的分页文件信息。
+	第四部分，为了处理不同的逻辑结果，将采用位向量表记录倒排索引，方便逻辑处理。
+# endDescription
+	
+# appendix
+	RID Type Trial One
+		This RID standard is written in the heading file. This standard contains two parts: storage foramtion and reading strategy
+		storage formation:
+			The RID file is written in binary way. The structure is refer to ELF file, including Database Heading, Entry Section, List Section, Name Section and Index Heading.
+			Database Heading contains the basic information of the RID file. Starting with "RID", it is easy to distinguish it from other files. The streampos and some constants concerning the standard, which includes maxFile size and so on.
+			Index Heading tells the contemporary information of the RID file, such as maxWeb_num and Hash strategy, and some constants surrounding entry units and list units.
+			Entry Section stores the information of reverse index each entry contains. It is laid out as a hash list, which means the size of this section is fixed. Each entry unit tells the validity, tag, name offset, list offset and list size. We introduce a F bit to accelerate the finding procedure.
+			List Section stores the real information of reverse index, which is laid out as a linear list without fixed size. Entry unit will tell the start node and the size of list.
+			Name Section stores the strings that each entry features. The formation is relatively arbitary. The size is not fixed and each string ends with '\0', which means search of entry name only requires one parameter: offset in Name Section.
+		Reading strategy:
+			The streampos of each section is recorded in Database Heading, which means you should read it first.
+			If a file is freshly created, you can ignore Index Heading since you already owns.
+			Otherwise, you should read contemporary information form Index Heading.
+			When searching for the entry, you should check V bit first.
+				First probe:
+				V = 0, end searching and report "NO FOUND"
+				otherwise, check F
+					F = 0, quadratic probing
+					F = 1, check tag
+						tag distincted, quadratic probing
+						otherwise, check Name
+							Name distincted, quadratic probing
+							otherwise, end searching and report "FOUND"
+				Quadratic probe:
+				(H ± i^2), i++
+				V = 0, end searching and report "NOT FOUND"
+				otherwise, check F
+					F = 1, continue
+					otherwise, check tag
+						tag distincted, continue
+						otherwise, check Name
+							Name distincted, continue
+							otherwise, end searching and report "FOUND"
+# endAppendix
+
+# endManual
