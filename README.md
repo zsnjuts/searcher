@@ -7,7 +7,7 @@ Powered by 张帅, 杨一江, 乔裕哲
 
 
 
-详细说明在[这里](docs/Manual.pdf)
+详细说明在[这里](docs/Manual.pdf)，安装包在[这里](bin/installer.exe)
 
 
 

@@ -1,0 +1,6 @@
+Shows how to add an entry to the Windows start menu.
+
+Generate installer with
+
+binarycreator --offline-only -c warofplanesV2.1/config/config.xml -p warofplanesV2.1/packages warofplanesV2.1/installer
+

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>War of Planes</Name>
+    <Version>2.2</Version>
+    <Title>飞机大战安装向导</Title>
+    <Publisher>张帅</Publisher>
+    <!-- Directory name is used in component.xml -->
+    <StartMenuDir>飞机大战</StartMenuDir>
+    <TargetDir>@HomeDir@/WarofPlanes</TargetDir>
+</Installer>

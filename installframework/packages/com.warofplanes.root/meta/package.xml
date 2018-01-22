@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>主程序</DisplayName>
+    <Description>飞机大战</Description>
+    <Version>2.2</Version>
+    <ReleaseDate>2017-06-30</ReleaseDate>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+</Package>
