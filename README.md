@@ -44,13 +44,13 @@ Maintained by 张帅
 
 ## 爬虫介绍
 
-作者：乔裕哲 151220086
-版本：v1.3
-	修复解析网页数据时可能导致abort()的问题：string.find返回-1
-	用户可以输入MAXFILECOUNT来限定爬取网页数
-	增加根据入度进行直接选择排序的函数
-	在调用爬虫的任何功能之前（sort_pages,crwal,init_website）,先初始化，调用init_global_vars，
-	初始化前先输入MAXFILECOUNT
+作者：乔裕哲 151220086  
+版本：v1.3  
+修复解析网页数据时可能导致abort()的问题：string.find返回-1  
+用户可以输入MAXFILECOUNT来限定爬取网页数  
+增加根据入度进行直接选择排序的函数  
+在调用爬虫的任何功能之前（sort_pages,crwal,init_website）,先初始化调用init_global_vars  
+初始化前先输入MAXFILECOUNT  
 ### 爬虫部分
 	1.先输入MAXFILECOUNT，限定爬取的网页数量
 	2.然后调用init_global_vars初始化一些全局变量以供爬虫使用
