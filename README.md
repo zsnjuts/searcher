@@ -77,11 +77,11 @@ Current RID version: Modified Trial One Nirvana
 
 
 版本改进：
-	++增加RID文件的分页机制
-	++改进收集策略，减少未响应情况
-	++更新RI_intsc_symdif函数，支持分页文件的读取
-	++更新loader函数，支持最新改进
-	++增加RI_exclude函数，支持not逻辑
+	++增加RID文件的分页机制  
+	++改进收集策略，减少未响应情况  
+	++更新RI_intsc_symdif函数，支持分页文件的读取  
+	++更新loader函数，支持最新改进  
+	++增加RI_exclude函数，支持not逻辑  
 ```
 description
 	The streamline of the whole process contains four parts:
